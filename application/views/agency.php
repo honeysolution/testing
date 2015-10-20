@@ -102,32 +102,28 @@
                   </div>
                   <div class="modal-body">
                       <span id="body_spinner_center" style="position: absolute;display: block;top: 50%;left: 50%;z-index: 0;"></span>
-                    <form id="AddAgency" name="AddAgency" method="POST" action="<?=base_url()?>index.php/wedding/addAgency" role="form" >
+                    <form id="AddAgency" method="POST" action="<?=base_url()?>index.php/wedding/addAgency" role="form" >
                         <div class="form-group">
                         <label for="exampleInputEmail1">Agency Name</label>
-                        <input type="text" class="form-control" name = "agency_name" id="agency_name" placeholder="Agency Name" required onblur="agencyname()"> 
-						<span id="agencymsg" class="errormsg"></span>
+                        <input type="text" class="form-control" name = "agency_name" id="agency_name" placeholder="Agency Name" required> 
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Person Name</label>
-                        <input type="text" class="form-control" name="contact_person_name" id="contact_person_name" placeholder="Person Name" required onblur="personname()">
-						<span id="permsg" class="errormsg"></span>
+                        <input type="text" class="form-control" name="contact_person_name" id="contact_person_name" placeholder="Person Name" required>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Contact No</label>
-                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Contact No" required onblur="agenmobile()">
-						<span id="agenmobilemsg" class="errormsg"></span>
+                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Contact No" required>
                       </div>
                       
                       <div class="form-group">
                         <label for="exampleInputPassword1">Work Description</label>
-                        <input type="text" class="form-control" name="work_desc" id="work_desc" placeholder="Description" required onblur="agendesvalid()">
-						<span id="agendespmsg" class="errormsg"></span>
+                        <input type="text" class="form-control" name="work_desc" id="work_desc" placeholder="Address" required>
                       </div> 
                         <div class="form-group">
                         <label for="exampleInputEmail1">Activity Name</label>
-                        <select name="activity_id" id="activity_id" class="form-control" required onblur="actname()">
-                        <?php if($activity_name){  ?> <option value="" selected>-Select Activity-</option> <?php
+                        <select name="activity_id" id="activity_id" class="form-control" required>
+                        <?php if($activity_name){  ?> <option value="" selected>Select</option> <?php
                                             foreach($activity_name as $event) { ?>
                                             <option value="<?php echo $event['activity_id']; ?>"><?php echo $event['activity_name']; ?></option>                                                
                                             <?php }
@@ -139,7 +135,6 @@
                             
                           
                         </select>
-						<span id="selectactmsg" class="errormsg"></span>
                       </div>
                        <div class="form-group">
                         <div id="error"></div>

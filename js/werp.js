@@ -313,8 +313,9 @@ processData:false,
         // get the form data
         // there are many ways to get this data uSign jQuery (you can use the class or id also)
         var formData = {
-            'username': $("#user_email").val(),
-            'password': $("#user_password").val()
+            'username': $("#user_name").val(),
+            'email': $("#user_email").val(),
+            'mobile': $("#user_mobile").val()
 
         };
        
@@ -341,7 +342,7 @@ processData:false,
 
         $.ajax({
                 type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                url: url + 'index.php/admin/adduser', // the url where we want to POST
+                url: url + 'index.php/wedding/addfuser', // the url where we want to POST
                 data: formData, // our data object
                 dataType: 'json'
             })
@@ -351,9 +352,9 @@ processData:false,
                 // log data to the console so we can see
                 if (data.success == true) {
                     //  box.modal('hide');    
-                      alert("CMS User Added Sucesfully...");
+                      bootbox.alert("Family User Added Sucesfully...");
                    // $('#error').html(data.error);
-                     $('#AddUser')[0].reset();
+                     $('#AddFamilyUser')[0].reset();
                 } else {
                     $('#error').html(data.error);
                 }

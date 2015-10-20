@@ -60,7 +60,7 @@
                                             <td><?php echo $data['project_city']; ?></td>
                                             <td><?php echo $data['project_start_date']; ?></td> 
                                             <td><?php echo $data['status'] == 0 ? '<button type="button" class="btn btn-danger" id="changeStatus" data-id="'.$data['project_id'].'">Pending</button>' : '<button type="button" class="btn btn-success">Completed</button>'; ?></td>  
-                                            <td><a href="<?=base_url()?>index.php/wedding/events/<?php echo $data['project_id'];   ?>"><i class="fa fa-plus fa-fw"></i>&nbsp;Events</a></td>                                           
+                                            <td><a href="<?=base_url()?>index.php/wedding/events/<?php echo $data['project_id'];   ?>"><i class="fa fa-plus fa-fw"></i>&nbsp;Events</a>&nbsp;<a href="<?=base_url()?>index.php/wedding/gallery/<?php echo $data['project_id'];   ?>"><i class="fa fa-plus fa-fw"></i>&nbsp;Gallery </a>&nbsp;<a href="<?=base_url()?>index.php/wedding/comments/<?php echo $data['project_id'];   ?>"><i class="fa fa-plus fa-fw"></i>&nbsp;Comments</a></td>                                           
                                         </tr>
                                         <?php $i++;}
                                         } 
