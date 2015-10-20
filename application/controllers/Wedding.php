@@ -159,22 +159,119 @@ class Wedding extends CI_Controller {
         $data['project_id'] = $project_id;
         $data['error'] = '';
         $data['project'] = $this->common_model->selectRecord("SELECT * from project where project_id ='".$project_id."'");        
-        $event_name= "SELECT * from event_names where event_id not in (select event_name from event where project_id ='".$project_id."')";
+        $event_name= "SELECT * from event_names` where event_id not in (select event_name from event where project_id ='".$project_id."')";
 		$data['event_names'] = $this->common_model->selectAllRecords($event_name); 
         $event= "SELECT event.*,event_names.event_name as eventName from event,event_names where event.project_id = '".$project_id."' and event.event_name=event_names.event_id";
 		$data['events'] = $this->common_model->selectAllRecords($event);        
         $this->load->view('events',$data);
         
         
+    } 
+    public function familyuser()
+    {
+         $user = "SELECT * FROM family_user";
+         $data['user'] = $this->common_model->selectAllRecords($user); 
+        $this->load->view('fuser',$data);
+    }
+        
+    public function addfuser()
+    {
+       
+            $insert['user_name'] = $this->input->post('username');		
+            $insert['user_email'] = $this->input->post('email');		
+            $insert['user_mobile'] = $this->input->post('mobile');		
+			$insert_id = $this->common_model->insertTableData('family_user', $insert);
+            if (!empty($insert_id))
+			{
+			$data['success'] = true;
+			$data['error'] = 'User Added Successfully';
+			}
+		  else
+			{
+			$data['success'] = false;
+			$data['error'] = 'Error in Insert User';
+			}
+ 
+        echo $json = json_encode($data);
+    }
+    
+    public function allActivities($project_id = '')
+    {
+        $data['project_id'] = $project_id;
+        $data['project'] = $this->common_model->selectRecord("SELECT * from project where project_id ='".$project_id."'");
+        $activities= "SELECT DISTINCT(assign_project_event_activity.activity_type) as activity_type from assign_project_event_activity where project_id = '".$project_id."'";
+		$data['activities'] = $this->common_model->selectAllRecords($activities); 
+        $activities_e= "SELECT assign_project_event_activity.* from assign_project_event_activity where project_id = '".$project_id."'";
+		$data['activities_e'] = $this->common_model->selectAllRecords($activities_e);        
+        $event= "SELECT event.*,event_names.event_name as eventName from event,event_names where event.project_id = '".$project_id."'and event.event_name=event_names.event_id";
+		$data['event'] = $this->common_model->selectAllRecords($event);
+      
+        $this->load->view('allactivities',$data);
+        
+    
+        
+    }
+    
+    public function comments($project_id = '')
+    {
+        
+        
+        $data['project_id'] = $project_id;
+        $data['error'] = '';
+       
+        $comments= "SELECT * from comments where project_id = '".$project_id."'";
+		$data['comments'] = $this->common_model->selectAllRecords($comments);       
+        
+        $this->load->view('comments',$data);
+        
+        
+    }
+    
+    public function gallery($project_id = '')
+    {
+        
+        
+        $data['project_id'] = $project_id;
+        $data['error'] = '';
+       
+        $gallery= "SELECT * from gallery where project_id = '".$project_id."'";
+		$data['gallery'] = $this->common_model->selectAllRecords($gallery);       
+        
+        $this->load->view('gallery',$data);
+        
+        
     }
     
       
     
+        public function deletegallery()
+    {
+        $arr['id']=$this->input->post('id');
+        $delete =  $this->home_model->deleteRecord('gallery', $arr);
+
+        if($delete)
+        {
+            $data['success'] = true;
+            $data['error'] = 'Delete Successfull';
+		}
+		 else
+		{
+		$data['success'] = false;
+		$data['error'] = 'Invalid Delete Operation';
+		}
+
+		echo $json = json_encode($data);
+        
+       
+       
+    }
     public function Activities($event_id='',$event_name='')
     {
         $data['event_id'] = $event_id;
         $agency= "SELECT * from agency where user_id='".$_SESSION['user_id']."'";
 		$data['agency'] = $this->common_model->selectAllRecords($agency);
+        $data['event']= $this->common_model->selectRecord('SELECT * from event where  event_id ="'.$event_id.'"');
+		
 		//$data['agency'] = '';
         //$activity_name= "SELECT * from activity where event_id='".$event_name."'";
         $activity_name= "SELECT * from activity ";
@@ -189,6 +286,26 @@ class Wedding extends CI_Controller {
     {
         $arr['assign_project_event_activity_id']=$this->input->post('id');
         $delete =  $this->home_model->deleteRecord('assign_project_event_activity', $arr);
+        if($delete)
+        {
+            $data['success'] = true;
+            $data['error'] = 'Delete Successfull';
+		}
+		 else
+		{
+		$data['success'] = false;
+		$data['error'] = 'Invalid Delete Operation';
+		}
+
+		echo $json = json_encode($data);
+        
+       
+       
+    }  
+    public function deletecomment()
+    {
+        $arr['comment_id']=$this->input->post('id');
+        $delete =  $this->home_model->deleteRecord('comments', $arr);
         if($delete)
         {
             $data['success'] = true;
@@ -436,9 +553,12 @@ class Wedding extends CI_Controller {
             $insert['activity_id'] = $this->input->post('activity_id');
 			$insert['agency_id'] = $this->input->post('agency_id');
 			$insert['asgn_detail_work'] = $this->input->post('asgn_detail_work');
+			$insert['activity_type'] = $this->input->post('activity_type');
+			$insert['status'] = $this->input->post('status');
 			$insert['contact_per'] = $this->input->post('contact_per');
 			$insert['contact_mob'] = $this->input->post('contact_mob');
 			$insert['asgn_max_time'] = $this->input->post('asgn_max_time');
+			$insert['project_id'] = $this->input->post('project_id');
 			$insert['event_id'] = $this->input->post('event_id');
             $info = $this->upload->data();
 			$insert['activity_image'] = $info['file_name'];  
@@ -544,6 +664,21 @@ class Wedding extends CI_Controller {
         $this->load->view('print',$data);
         
     }
+     public function actprint($project_id = '')
+    {
+        $data['project_id'] = $project_id;
+        $data['project'] = $this->common_model->selectRecord("SELECT * from project where project_id ='".$project_id."'");
+        $activities= "SELECT DISTINCT(assign_project_event_activity.activity_type) as activity_type from assign_project_event_activity where project_id = '".$project_id."'";
+		$data['activities'] = $this->common_model->selectAllRecords($activities); 
+        $activities_e= "SELECT assign_project_event_activity.* from assign_project_event_activity where project_id = '".$project_id."'";
+		$data['activities_e'] = $this->common_model->selectAllRecords($activities_e);        
+        $event= "SELECT event.*,event_names.event_name as eventName from event,event_names where event.project_id = '".$project_id."'and event.event_name=event_names.event_id";
+		$data['event'] = $this->common_model->selectAllRecords($event);
+        
+        $this->load->view('activityprint',$data);
+        
+    }
+    
     public function addEventname()
     {
         

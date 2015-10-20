@@ -31,7 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 ">                   
-                    <p class="pull-right"><a href="<?php echo base_url()?>index.php/wedding/AllEvents/<?php echo $project->project_id; ?>" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;All Events</a>&nbsp;&nbsp;<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#EventModel">Add Events</button></p>                  
+                    <p class="pull-right"><a href="<?php echo base_url()?>index.php/wedding/AllEvents/<?php echo $project->project_id; ?>" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;All Events</a>&nbsp;&nbsp;<a href="<?php echo base_url()?>index.php/wedding/allActivities/<?php echo $project->project_id; ?>" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;All Activities</a>&nbsp;&nbsp;<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#EventModel">Add Events</button></p>                  
                </div>
                 <!-- /.col-lg-12 -->
             </div>

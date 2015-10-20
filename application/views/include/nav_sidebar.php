@@ -24,6 +24,9 @@
                                 </li>  
                                 <li>
                                     <a href="<?=base_url()?>index.php/wedding/usermaster"><i class=" fa fa-user-md fa-fw"></i>User Master</a>
+                                </li>
+                                 <li>
+                                    <a href="<?=base_url()?>index.php/wedding/familyuser"><i class=" fa fa-user-md fa-fw"></i>Family User</a>
                                 </li> 
                                 
                             </ul>
