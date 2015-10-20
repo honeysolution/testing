@@ -31,7 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 ">                   
-                    <p class="pull-right"><a href="<?php echo base_url()?>index.php/wedding/AllEvents/<?php echo $project->project_id; ?>" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;All Events</a>&nbsp;&nbsp;<a href="<?php echo base_url()?>index.php/wedding/allActivities/<?php echo $project->project_id; ?>" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;All Activities</a>&nbsp;&nbsp;<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#EventModel">Add Events</button></p>                  
+                    <p class="pull-right"><a href="<?php echo base_url()?>index.php/wedding/AllEvents/<?php echo $project->project_id; ?>" class="btn btn-info"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;All Events</a>&nbsp;&nbsp;<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#EventModel">Add Events</button></p>                  
                </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -122,16 +122,15 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" onclick="javascript:window.location.reload()" >&times;</button>
                     <h4 class="modal-title ">Add Events</h4>
-                     
                   </div>
-                  <div class="modal-body"><center> Project :-<?php echo $project->project_name; ?></center>
+                  <div class="modal-body">
                         <span id="body_spinner_center" style="position: absolute;display: block;top: 50%;left: 50%;z-index: 0;"></span>
                     <!--action="http://localhost/Wedding_CI/index.php/wedding/addEvents"-->
-                    <form id="AddEvent" role="form" method="post" >
+                    <form id="AddEvent" name="AddEvent" role="form" method="post" >
                       <div class="form-group">
                         <label for="exampleInputEmail1">Event Name</label>
-                        <select name="event_name" id="event_name" class="form-control" required onchange="get_image(this.value)">
-                        <?php if($event_names){  ?> <option value="" selected>Select</option> <?php
+                        <select name="event_name" id="event_name" class="form-control" required onblur="selectevent()">
+                        <?php if($event_names){  ?> <option value="" selected>-Select Event-</option> <?php
                                             foreach($event_names as $event) { ?>
                                             <option value="<?php echo $event['event_id']; ?>"><?php echo $event['event_name']; ?></option>                                                
                                             <?php }
@@ -143,45 +142,43 @@
                             
                           
                         </select>
+						<span id="eventcheckmsg" class="errormsg"></span>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Event Image</label>
-                        <label for="exampleInputPassword1" class="col-md-12">
-                            <span  id="eventimg" class="col-md-12"></span>  </label>                        
-                        <div class="col-md-12" > <input type="checkbox" name="usethis" id="chkbx" onclick="enb_img()" >Upload New</div>
-                         
-                      </div>    
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Event Image</label>
-                        <input type="file" class="form-control" name="userfile" id="userfile" placeholder="Event Image" disabled="disabled" required>
-                       <span  id="checkboxhandle" class="col-md-12"></span>  </label>   
-                        <input type="hidden" class="form-control" name="event_image_direct" id="event_image_direct">
+                        <input type="file" class="form-control" name="userfile" id="userfile" placeholder="Event Image" required onblur="eventimage1()" onchange="fileeveImage1(this);">
+						<span id="msgeveimage" class="errormsg"></span>
                       </div>
                         <div class="form-group">
                         <label for="exampleInputPassword1">Event Venue</label>
-                        <input type="text" class="form-control" name="event_venue" id="event_venue" placeholder="Event Venue" required>
+                        <input type="text" class="form-control" name="event_venue" id="event_venue" placeholder="Event Venue" required onblur="eventvenue();">
+						<span id="eventvenuemsg" class="errormsg"></span>
+						
                       </div>
                       
                         <div class="row">  
                             <div class="col-md-6">
                                 <div class="form-group">
                         <label for="exampleInputPassword1">Event Date</label>
-                        <input type="text" class="form-control datepicker" name="event_date" id="event_date" placeholder="Event Date" required readonly> 
-                                    
+                        <input type="text" class="form-control datepicker" name="event_date" id="event_date" placeholder="Event Date" required readonly onblur="evedatevalid()"> 
+                          <span id="evedatemsg" class="errormsg"></span>       
                                   
                                 </div> 
                             </div>
                              <div class="col-md-6">
                                 <div class="form-group">
                         <label for="exampleInputPassword1">Event Time</label>
-                        <input type="text" class="form-control" name="event_time" id="event_time" placeholder="Event time" required>
+                        <input type="text" class="form-control" name="event_time" id="event_time" placeholder="Event time" required onblur="evetimemax()">
+						 <span id="evetimemsg" class="errormsg"></span>  
                         <input type="hidden" class="form-control" name ="project_id" id="project_id" value="<?php echo $project_id; ?>">
                                 </div> 
                             </div>
                         </div>  
                       <div class="form-group">
                         <label for="exampleInputPassword1">Event Address</label>
-                          <textarea  class="form-control" name="event_add" id="event_add" required></textarea>
+                          <textarea  class="form-control" name="event_add" id="event_add" required onblur="evedaddval()"></textarea>
+						   <span id="msgeveadd" class="errormsg"></span> 
+							<span id="agendespmsg" class="errormsg"></span>
                       </div>
                        
                     <div class="form-group">
@@ -205,41 +202,6 @@
 $(function(){
 $('.datepicker').datepicker({ startDate: '-0m'})
 });
-    
-    
-    
-function get_image(event_id) {
-    $.ajax({
-         type: "POST",
-         url: "<?=base_url()?>index.php/wedding/EventImg",
-         data: {
-             "event_id": event_id
-         },
-        dataType: 'json',
-         success: function(data) {
-         
-            
-            //$("#eventimg").html("<img src='<?=base_url()?>uploads/'"+data.eve_img.event_img +"width='100' height='100'>");
-            $("#eventimg").html("<img src='<?=base_url()?>uploads/"+data.eve_img.event_img+"' width='100' height='100'>");
-             $('#event_image_direct').val(data.eve_img.event_img);
-             // $("#replaceThis").append(responseData);
-         }
-     });
-}   
-function enb_img()
-{
-   if ($('input[type=checkbox]').is(':checked')) {
-        $('#chkbx').val('checked');
-     //   $("#checkboxhandle").html("<input type='hidden' name='u_img' id='u_mg' value='checked' >");
-        $("#userfile").removeAttr("disabled");
-    }
-    else{
-           $('#chkbx').val('unchecked');
-   //     $("#checkboxhandle").html("<input type='hidden' name='u_img' id='u_mg' value='unchecked' >");
-          $("#userfile").attr("disabled", "disabled");
-    }
-}
-   
 </script>
    <script type="text/javascript">
     

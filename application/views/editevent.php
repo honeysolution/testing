@@ -43,7 +43,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body"> 
-                        <form id="AddEvent" role="form" enctype="multipart/form-data" method="post" action="http://localhost/Wedding_CI/index.php/wedding/editevent">
+                        <form id="AddEvent" name="AddEvent" role="form" enctype="multipart/form-data" method="post" action="http://localhost/Wedding_CI/index.php/wedding/editevent">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Event Name</label>
                          <input type="text" class="form-control" name="event_name" id="event_name"  value="<?php echo $events->eventName; ?>" readonly>
@@ -52,29 +52,32 @@
                       
                         <div class="form-group">
                         <label for="exampleInputPassword1">Event Venue</label>
-                        <input type="text" class="form-control" name="event_venue" id="event_venue"  value="<?php echo $events->event_venue; ?>" required>
+                        <input type="text" class="form-control" name="event_venue" id="event_venue"  value="<?php echo $events->event_venue; ?>" required onblur="eventvenue();">
+						<span id="eventvenuemsg" class="errormsg"></span>
                       </div>
                       
                         <div class="row">  
                             <div class="col-md-6">
                                 <div class="form-group">
                         <label for="exampleInputPassword1">Event Date</label>
-                        <input type="text" class="form-control datepicker" name="event_date" id="event_date" value="<?php echo $events->event_date; ?>" required readonly> 
-                                    
+                        <input type="text" class="form-control datepicker" name="event_date" id="event_date" value="<?php echo $events->event_date; ?>" required readonly onblur="evedatevalid()"> 
+                          <span id="evedatemsg" class="errormsg"></span>          
                                   
                                 </div> 
                             </div>
                              <div class="col-md-6">
                                 <div class="form-group">
                         <label for="exampleInputPassword1">Event Time</label>
-                        <input type="text" class="form-control" name="event_time" id="event_time" value="<?php echo $events->event_time; ?>" required>
+                        <input type="text" class="form-control" name="event_time" id="event_time" value="<?php echo $events->event_time; ?>" required onblur="evetimemax()">
+						<span id="evetimemsg" class="errormsg"></span>  
                       
                                 </div> 
                             </div>
                         </div>  
                       <div class="form-group">
                         <label for="exampleInputPassword1">Event Address</label>
-                          <textarea  class="form-control" name="event_add"  required><?php echo $events->event_add; ?></textarea>
+                          <textarea  class="form-control" name="event_add"  required onblur="evedaddval()"><?php echo $events->event_add; ?></textarea>
+						   <span id="msgeveadd" class="errormsg"></span>
                       </div>
                        
                     <div class="form-group">
