@@ -79,11 +79,10 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                        <form id="AddEventMaster" name="AddEventMaster"  role="form" >
+                        <form id="AddEventMaster"  role="form" >
                         <div class="form-group">
                         <label for="exampleInputEmail1">Event Name</label>
-                        <input type="text" class="form-control"  name = "Event_Name" id="Event_Name" placeholder="Event Name" required onblur="eventname()">
-						<span id="activitymsg" class="errormsg"></span>
+                        <input type="text" class="form-control"  name = "Event_Name" id="Event_Name" placeholder="Event Name" required> 
                         </div>
                         <div class="form-group pull-right">
                         <input type="submit" class="btn btn-default" value="Save">

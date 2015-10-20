@@ -11,7 +11,7 @@
   <link href="<?=base_url()?>dist/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="<?=base_url()?>assets/honeysol/css/mbr-additional.css" type="text/css">
      <script src="<?=base_url()?>bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="<?=base_url()?>dist/js/validation.js"></script> 
+  
   
 </head>
 <body>
@@ -27,25 +27,19 @@
                 <div class="panel panel-default">
                 <div class="panel-body">
                     
-                            <form class="form-inline" id="LoginForm" name="LoginForm" method="POST" action="<?=base_url()?>index.php/wedding/login">
+                            <form class="form-inline" id="LoginForm" method="POST" action="<?=base_url()?>index.php/wedding/login">
                               <div class="form-group">
                                 <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                                <input type="email" class="form-control" id="username" name="username" placeholder="Email" required onblur="">
-								<span id="msgemail" class="errormsg"></span>
+                                <input type="email" class="form-control" id="username" name="username" placeholder="Email" required>
                               </div>
-							   
-							   
-							   
                               <div class="form-group">
                                 <label class="sr-only" for="exampleInputPassword3">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required onblur="">
-								<span id="userpassmsg" class="errormsg"></span>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                               </div>
                               
                               <p class="btn btn-default" onclick="submit()">Sign in</p>
                             </form>
                     <div id="error" style="display:none;" >
-					
                     </div>
                     </div>
               </div>
