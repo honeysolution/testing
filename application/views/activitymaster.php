@@ -86,7 +86,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                         <form id="AddActivitymaster"  role="form"  action="" method ="post" >
+                         <form id="AddActivitymaster" name="AddActivitymaster"  role="form"  action="" method ="post" >
                         
                        
                         
@@ -95,19 +95,22 @@
                         
                         <div class="form-group">
                         <label for="exampleInputEmail1">Activity Name</label>
-                        <input type="text" class="form-control"  name = "Activity_Name" id="Activity_Name" placeholder="Activity Name" required> 
+                        <input type="text" class="form-control"  name = "Activity_Name" id="Activity_Name" placeholder="Activity Name" required onblur="activitynameval()"> 
+						<span id="activitymsg" class="errormsg"></span>
                         </div>
                       
                         
                         <div class="form-group">
                         <label for="exampleInputEmail1">Activity Details</label>
-                        <input type="text" class="form-control"  name = "Activity_Details" id="Activity_Details" placeholder="Activity Details" required> 
+                        <input type="text" class="form-control"  name = "Activity_Details" id="Activity_Details" placeholder="Activity Details" required onblur="activitydetails()"> 
+						<span id="activitydetils" class="errormsg"></span>
                         </div>
                         
                         
                          <div class="form-group">
                         <label for="exampleInputEmail1">Activity Remark</label>
-                        <input type="text" class="form-control"  name = "Activity_Remark" id="Activity_Remark" placeholder="Activity Remark" required> 
+                        <input type="text" class="form-control"  name = "Activity_Remark" id="Activity_Remark" placeholder="Activity Remark" required onblur="actremarks()"> 
+						<span id="activityrem" class="errormsg"></span>
                         </div>
                         
                    
